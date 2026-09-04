@@ -1,0 +1,9 @@
+# Eclipse Server configuration folder
+Servers/
+
+# 기타 자바/이클립스 환경에서 일반적으로 무시하는 항목들 (필요시 추가)
+.metadata/
+.settings/
+bin/
+build/
+*.class
