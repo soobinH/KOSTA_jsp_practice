@@ -56,12 +56,16 @@ if(cookie!=null) {
 		<div class="wrap">
 			<div class="row">  
 				<div class="title">아이디</div>
-				<div class="input"><input type="text" name="userId"/></div>
+				<div class="input"><input type="text" name="id"/></div>
 			</div>
 			<div class="row">  
 				<div class="title">비밀번호</div>
 				<div class="input"><input type="text" name="password"/></div>
 			</div>
+			<%-- <div class="row">  
+				<input type="checkbox" name="autologin" class="title" value="autologin"
+					<%if(((String)request.getAttribute("autologin")).equals("autologin")){%>checked<%}%>><b>자동로그인</b>
+			</div> --%>
 			<div>
 				<input type="submit" value="로그인"/><br>
 			</div>

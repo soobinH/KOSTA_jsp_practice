@@ -4,7 +4,6 @@ pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -14,7 +13,7 @@ pageEncoding="UTF-8"%>
             margin-top: 50px;
         }
         
-        div {
+        #form {
             width: 500px;
             border: 1px solid black;
             margin: 0 auto;
@@ -45,14 +44,15 @@ pageEncoding="UTF-8"%>
 </head>
 <body>
 <%@ include file = "header.jsp" %>
+  <form action="withdraw" method="post">
     <h1>출금</h1>
-    <div>
+    <div id="form">
         <h2>계좌번호</h2>
-        <input type="text"><br>
+        <input type="text" name="id"><br>
         <h2>출금액</h2>
-        <input type="text"><br>
+        <input type="text" name="money"><br>
         <button>출금</button>
     </div>
-    
+  </form>
 </body>
 </html>

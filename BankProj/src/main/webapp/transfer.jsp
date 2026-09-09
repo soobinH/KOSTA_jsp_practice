@@ -57,24 +57,25 @@ pageEncoding="UTF-8"%>
 </head>
 <body>
 <%@ include file = "header.jsp" %>
+<form action="transfer" method="post">
     <h1>계좌 송금</h1>
     <div id="outer">
         <div>
             <h2>보내는계좌번호</h2>
-            <input type="text">
+            <input type="text" name="sendID">
         </div>
         <div>
             <h2>받는계좌번호</h2>
-            <input type="text">
+            <input type="text" name="receiveID">
         </div>
         <div>
             <h2>송금액</h2>
-            <input type="text">
+            <input type="text" name="money">
         </div>
         <br>
         <button>송금</button>
         
     </div>
-    
+ </form>   
 </body>
 </html>

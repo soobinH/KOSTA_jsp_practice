@@ -45,6 +45,7 @@ pageEncoding="UTF-8"%>
 </head>
 <body>
 <%@ include file = "header.jsp" %>
+
     <h1>계좌 조회</h1>
     <div>
         <h2>계좌번호</h2>
