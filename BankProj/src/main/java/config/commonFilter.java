@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dto.Member;
+
 
 // 모든 url 패턴(/*에 필터 적용
 @WebFilter("/*")
@@ -30,11 +32,11 @@ public class commonFilter implements Filter {
 		
 		HttpSession session = req.getSession();
 		session.getAttribute("userId");
-		String userId = (String)session.getAttribute("userId");
-		
-		if(!uri.endsWith("/login")&& (userId)==null) {
-			res.sendRedirect("login");
-			return;
+		Member user = (Member) session.getAttribute("user");
+
+		if (!uri.endsWith("/login") && !uri.endsWith("/join") && user == null) {
+		    res.sendRedirect("login");
+		    return;
 		}
 		
 		chain.doFilter(req, res);

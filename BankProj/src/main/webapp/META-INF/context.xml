@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<Resource name="jdbc/kosta"
+			  auth="container"
+			  type="javax.sql.DataSource"
+			  username="root"
+			  password="1212"
+			  driverClassName="org.mariadb.jdbc.Driver"
+			  url="jdbc:mariadb://localhost:3306/kostadb26_2"
+			  factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
+			  maxTotal="500"
+	/>
+</Context>
