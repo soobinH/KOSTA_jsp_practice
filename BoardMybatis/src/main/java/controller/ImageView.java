@@ -34,8 +34,12 @@ public class ImageView extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String filename = request.getParameter("filename");
 		
+		
+		String filename = request.getParameter("filename");
+		if(filename == null || filename.trim().isEmpty()) {
+	        return; 
+	    }
 		String servletPath = request.getServletPath();
 		
 		CommonService service = new CommonServiceImpl();

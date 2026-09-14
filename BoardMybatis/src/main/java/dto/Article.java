@@ -7,7 +7,16 @@ public class Article {
 	private String writer;
 	private String imageFilename;
 	private String downloadFilename;
+	private Integer viewcnt;
 	
+	public Integer getViewcnt() {
+		return viewcnt;
+	}
+
+	public void setViewcnt(Integer viewcnt) {
+		this.viewcnt = viewcnt;
+	}
+
 	public Article() {
 		super();
 	}
@@ -26,6 +35,18 @@ public class Article {
 		this.title = title;
 		this.content = content;
 		this.writer = writer;
+	}
+
+	public Article(Integer num, String title, String content, String writer, String imageFilename,
+			String downloadFilename, Integer viewcnt) {
+		super();
+		this.num = num;
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
+		this.imageFilename = imageFilename;
+		this.downloadFilename = downloadFilename;
+		this.viewcnt = viewcnt;
 	}
 
 	public Integer getNum() {

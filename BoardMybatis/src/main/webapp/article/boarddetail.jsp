@@ -45,6 +45,10 @@
 </table>
 <br>
 <div id="commandCell">
+	<c:if test="${sessionScope.user.id eq article.writer }">
+		<a href="${contextPath }/article/modify?num=${article.num}">수정</a>&nbsp;&nbsp;&nbsp;
+	
+	</c:if>
 	<a href="${contextPath}/article/list">목록</a>&nbsp;&nbsp;&nbsp;
 
 </div>

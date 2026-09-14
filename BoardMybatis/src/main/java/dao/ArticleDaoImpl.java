@@ -59,9 +59,54 @@ public class ArticleDaoImpl implements ArticleDao {
 	}
 
 	@Override
-	public List<Article> articleList(Integer row) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Article> selectArticleList(Integer row) throws Exception {
+		try(SqlSession sqlSession  = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+			return sqlSession.selectList("mapper.article.selectArticleList", row);
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Override
+	public Integer selectArticleCnt() throws Exception {
+		try(SqlSession sqlSession  = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+			return sqlSession.selectOne("mapper.article.selectArticleCnt");
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Override
+	public void updateArticleViewCnt(Integer num) throws Exception {
+		SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
+		try {
+			sqlSession.update("mapper.article.updateArticleViewCnt", num);
+			sqlSession.commit();
+		} catch(Exception e) {
+			e.printStackTrace();
+			sqlSession.rollback();
+			throw e;
+		} finally {
+			sqlSession.close();
+		}
+		
+	}
+
+	@Override
+	public void deleteArticle(Integer num) throws Exception {
+		SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
+		try {
+			sqlSession.delete("mapper.article.deleteArticle",num);
+			sqlSession.commit();
+		} catch(Exception e) {
+			sqlSession.rollback();
+			throw e;
+		} finally {
+			sqlSession.close();
+		}
+		
 	}
 
 }

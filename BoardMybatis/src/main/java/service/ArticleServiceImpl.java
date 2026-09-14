@@ -9,6 +9,7 @@ import javax.servlet.http.Part;
 import dao.ArticleDao;
 import dao.ArticleDaoImpl;
 import dto.Article;
+import util.PageInfo;
 
 public class ArticleServiceImpl implements ArticleService {
 	private ArticleDao articleDao;
@@ -51,13 +52,13 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public Article detailArticle(Integer num) throws Exception {
-		
+		articleDao.updateArticleViewCnt(num);
 		return articleDao.selectArticle(num);
 	}
 
 	@Override
 	public void deleteArticle(Integer num) throws Exception {
-		// TODO Auto-generated method stub
+		articleDao.deleteArticle(num);
 
 	}
 
@@ -79,9 +80,26 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public List<Article> articleList(Integer page) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Article> articleList(PageInfo pageInfo) throws Exception {
+		// 전체 게시글 수
+		Integer articleCnt = articleDao.selectArticleCnt();
+		Integer allPage = (int)Math.ceil(articleCnt/10.0); //전체 페이지 수
+		
+		
+		
+		// startPage : curPage(1~10) -> 1, curPage(11~20)->11, curPage(21, 30) -> 21
+		Integer startPage = (pageInfo.getCurPage()-1)/10*1+1;
+		Integer endPage = startPage+10;
+		if(endPage>allPage) endPage = allPage; // 마지막 페이지 보정, 전체 페이지 넘지 않게
+		if(pageInfo.getCurPage()>endPage) {
+			pageInfo.setCurPage(endPage);
+		}
+		pageInfo.setAllPage(allPage);
+		pageInfo.setStartPage(startPage);
+		pageInfo.setEndPage(endPage);
+		
+		Integer row = (pageInfo.getCurPage()-1)*10+1;
+		return articleDao.selectArticleList(row-1);
 	}
 
 }

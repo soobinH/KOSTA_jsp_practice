@@ -45,7 +45,7 @@ public class Login extends HttpServlet {
 		try {
 			HttpSession session =request.getSession();
 			session.setAttribute("user", service.login(id, password));
-			request.getRequestDispatcher("/article/boardlist.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath()+"/article/list");
 		} catch(Exception e) {
 			e.printStackTrace();
 			request.setAttribute("err", e.getMessage());

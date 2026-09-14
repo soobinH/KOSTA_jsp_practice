@@ -23,4 +23,20 @@
 		
 		where num=#{num}
 	</update>
+	
+	<select id="selectArticleList" parameterType="Integer" resultType="article">
+		select * from article order by num desc limit #{row}, 10
+	</select>
+	
+	<select id="selectArticleCnt" resultType="Integer">
+		select count(*) from article
+	</select>
+	
+	<update id="updateArticleViewCnt" parameterType="Integer">
+		update article set viewcnt=viewcnt+1 where num=#{num}
+	</update>
+	
+	<delete id="deleteArticle" parameterType="Integer">
+		delete from article where num=#{num}
+	</delete>
 </mapper>

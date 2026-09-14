@@ -28,10 +28,11 @@
 <body>
 <h2>게시판 글 등록</h2>
 <form action="${contextPath}/article/write" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="writer" id="writer" value="${sessionScope.user.id }">
 	<table>
 		<tr>
-			<td class="td_left"><label for="writer">글쓴이</label></td>
-			<td class="td_right"><input type="text" name="writer" id="writer"></td>
+			<td class="td_left"><label for="writerName">글쓴이</label></td>
+			<td class="td_right"><input type="text" name="writerName" id="writerName"readonly="readonly" value="${sessionScope.user.name }"></td>
 		</tr>
 		<tr>
 			<td class="td_left"><label for="subject">제목</label></td>

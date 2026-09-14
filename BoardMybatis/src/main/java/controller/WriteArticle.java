@@ -61,7 +61,7 @@ public class WriteArticle extends HttpServlet {
 		try {
 			Integer num = service.writeArticle(article, realPath,ifile, dfile);
 			request.setAttribute("article", service.detailArticle(num));
-			request.getRequestDispatcher("/article/boarddetail.jsp").forward(request, response);
+			request.getRequestDispatcher("boarddetail.jsp").forward(request, response);
 			
 		} catch(Exception e) {
 			e.printStackTrace();

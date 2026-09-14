@@ -12,16 +12,16 @@ import service.ArticleService;
 import service.ArticleServiceImpl;
 
 /**
- * Servlet implementation class DetailArticle
+ * Servlet implementation class DeleteArticle
  */
-@WebServlet("/article/detail")
-public class DetailArticle extends HttpServlet {
+@WebServlet("/article/delete")
+public class DeleteArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DetailArticle() {
+    public DeleteArticle() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,17 +31,17 @@ public class DetailArticle extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Integer num = Integer.parseInt(request.getParameter("num"));
-		ArticleService service =new ArticleServiceImpl();
+		Integer page = Integer.parseInt(request.getParameter("num"));
+		
+		ArticleService service = new ArticleServiceImpl();
 		try {
-			request.setAttribute("article", service.detailArticle(num));
-			request.getRequestDispatcher("boarddetail.jsp").forward(request, response);
+			service.deleteArticle(num);
+			response.sendRedirect(request.getContextPath()+"/article/list?page="+page);
 		} catch(Exception e) {
 			e.printStackTrace();
-			request.setAttribute("err", "게시글 상세조회 오류");
-			request.getRequestDispatcher("error.jsp").forward(request, response);
+			request.setAttribute("err", "게시글 삭제 오류입니다.");
+			request.getRequestDispatcher("/common/error.jsp").forward(request, response);
 		}
 	}
-
-	
 
 }
