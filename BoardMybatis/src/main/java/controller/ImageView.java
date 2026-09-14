@@ -11,10 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import service.CommonService;
+import service.CommonServiceImpl;
+
 /**
  * Servlet implementation class ImageView
  */
-@WebServlet("/image")
+@WebServlet(
+		urlPatterns={"/image", "/profile"})
 public class ImageView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,25 +35,24 @@ public class ImageView extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String filename = request.getParameter("filename");
-		String uploadPath = request.getServletContext().getRealPath("/uploads");
-		FileInputStream fis = null;
-		OutputStream out = null;
+		
+		String servletPath = request.getServletPath();
+		
+		CommonService service = new CommonServiceImpl();
 		try {
-			fis = new FileInputStream(new File(uploadPath, filename));
-			out = response.getOutputStream();
-			byte[] buff = new byte[4096];
-			int len;
-			while((len=fis.read(buff))>0) {
-				out.write(buff, 0, len);
-			}
+			String uploadPath;
+			if(servletPath.equals("/image"))
+				uploadPath = (String)request.getServletContext().getAttribute("uploadPath");
+			else if(servletPath.equals("/profile"))
+				uploadPath = (String)request.getServletContext().getAttribute("profilePath");
+			else throw new Exception("이미지경로 오류");
+			
+			String realPath = request.getServletContext().getRealPath(uploadPath);
+			service.imageView(realPath, filename, response.getOutputStream());
+			
+			
 		} catch(Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if(fis != null) fis.close();
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
 		}
 	}
 

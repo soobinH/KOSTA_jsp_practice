@@ -31,6 +31,6 @@
 	
 	<mappers>
 		<mapper resource="mapper/article.xml"/>
-		<!-- <mapper resource="mapper/member.xml"/> -->
+		<mapper resource="mapper/member.xml"/>
 	</mappers>
 </configuration>

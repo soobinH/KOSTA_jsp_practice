@@ -36,8 +36,20 @@
 	
 </h2>
 <div id="member">
-	<a href="${contextPath}/member/login">로그인</a>
+	<c:choose>
+		<c:when test="${sessionScope.user ne Empty}">
+			<img src="${contextPath }/profile?filename=${user.profile}"
+			width="70px"style="border-radius:50%;"/>
+			<span>${sessionScope.user.name }</span>&nbsp;&nbsp;
+			<a href="${contextPath}/member/logout">로그아웃</a>&nbsp;&nbsp;
+		</c:when>
+		<c:otherwise>
+			<a href="${contextPath}/member/login">로그인</a>&nbsp;&nbsp;
+		</c:otherwise>
+	</c:choose>
 	<a href="${contextPath}/member/join">회원가입</a>
+	
+	
 </div><br>
 <table>
 	<tr id="tr_top">

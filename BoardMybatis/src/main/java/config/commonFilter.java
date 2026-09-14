@@ -4,24 +4,44 @@ import java.io.IOException;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import dto.Member;
 
 
 // 모든 url 패턴(/*에 필터 적용
-@WebFilter("/*")
+@WebFilter(
+	urlPatterns = "/*",
+	initParams = {
+			@WebInitParam(name="uploadPath", value ="/uploads"),
+			@WebInitParam(name="profilePath", value ="/profiles")
+	}
+		
+)
+
 public class commonFilter implements Filter {
+	
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
+		String uploadPath = filterConfig.getInitParameter("uploadPath");
+		String profilePath = filterConfig.getInitParameter("profilePath");
+		
+		ServletContext context = filterConfig.getServletContext();
+		context.setAttribute("uploadPath", uploadPath);
+		context.setAttribute("profilePath", profilePath);
+	}
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
+		
+		
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpServletResponse res = (HttpServletResponse)response;
 		

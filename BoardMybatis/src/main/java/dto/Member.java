@@ -7,13 +7,16 @@ public class Member {
 	private String email;
 	private String address;
 	private String detail_address;
-	private String posdcode;
+	private String postcode;
+	private String profile;
 	
 	public Member() {
 		super();
 	}
 	
-	public Member(String id, String name, String password, String email, String address, String detail_address, String posdcode) {
+	
+	public Member(String id, String name, String password, String email, String address, String detail_address,
+			String postcode, String profile) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -21,9 +24,21 @@ public class Member {
 		this.email = email;
 		this.address = address;
 		this.detail_address = detail_address;
-		this.posdcode = posdcode;
+		this.postcode = postcode;
+		this.profile = profile;
 	}
-	
+
+
+	public String getProfile() {
+		return profile;
+	}
+
+
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+
+
 	public String getId() {
 		return id;
 	}
@@ -60,11 +75,11 @@ public class Member {
 	public void setDetail_address(String detail_address) {
 		this.detail_address = detail_address;
 	}
-	public String getPosdcode() {
-		return posdcode;
+	public String getPostcode() {
+		return postcode;
 	}
-	public void setPosdcode(String posdcode) {
-		this.posdcode =posdcode;
+	public void setPostcode(String postcode) {
+		this.postcode =postcode;
 	}
 	
 	

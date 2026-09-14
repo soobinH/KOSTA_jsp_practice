@@ -10,26 +10,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import dto.Article;
-import service.ArticleService;
-import service.ArticleServiceImpl;
+import dto.Member;
+import service.MemberService;
+import service.MemberServiceImpl;
 
 /**
- * Servlet implementation class WriteArticle
+ * Servlet implementation class Join
  */
-@WebServlet("/article/write")
+@WebServlet("/member/join")
 @MultipartConfig(
-	maxFileSize=1024*1024*10,//개별 파일 최대 크기(10mb)
-	maxRequestSize=1024*1024*10*4*5, //전체 요청 최대 크기(50mb)
-	fileSizeThreshold=1024*1024*1 // 1mb 초과 시 임시 디스크경로사용
+		maxFileSize=1024*1024*10,//개별 파일 최대 크기(10mb)
+		maxRequestSize=1024*1024*10*4*5, //전체 요청 최대 크기(50mb)
+		fileSizeThreshold=1024*1024*1 // 1mb 초과 시 임시 디스크경로사용
 )
-public class WriteArticle extends HttpServlet {
+
+public class Join extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WriteArticle() {
+    public Join() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,35 +39,40 @@ public class WriteArticle extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/article/writeform.jsp").forward(request, response);
+		request.getRequestDispatcher("/member/join.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		String writer = request.getParameter("writer");
-		Article article = new Article(title, content, writer);
+		Member member =new Member();
 		
-		Part ifile = request.getPart("ifile");
-		Part dfile = request.getPart("dfile");
+		member.setId(request.getParameter("id"));
+		member.setName(request.getParameter("name"));
+		member.setPassword(request.getParameter("password"));
+		member.setEmail(request.getParameter("email"));
+		member.setPostcode(request.getParameter("postcode"));
+		member.setAddress(request.getParameter("address"));
+		member.setDetail_address(request.getParameter("detailAddress"));
 		
 		
-		String uploadPath = (String)request.getServletContext().getAttribute("uploadPath");
+		Part profile = request.getPart("profile");
+		
+		String uploadPath =(String)request.getServletContext().getAttribute("profilePath");
 		String realPath = request.getServletContext().getRealPath(uploadPath);
-		ArticleService service = new ArticleServiceImpl();
 		
+		MemberService service = new MemberServiceImpl();
 		try {
-			Integer num = service.writeArticle(article, realPath,ifile, dfile);
-			request.setAttribute("article", service.detailArticle(num));
-			request.getRequestDispatcher("/article/boarddetail.jsp").forward(request, response);
-			
+			service.join(member, realPath, profile);
+			request.getRequestDispatcher("/member/login.jsp").forward(request, response);
 		} catch(Exception e) {
 			e.printStackTrace();
 			request.getRequestDispatcher("/common/error.jsp").forward(request, response);
+			
 		}
+		
+		
 	}
 
 }

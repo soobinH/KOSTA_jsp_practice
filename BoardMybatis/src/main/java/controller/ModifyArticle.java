@@ -62,11 +62,12 @@ public class ModifyArticle extends HttpServlet {
 		Part ifile = request.getPart("ifile");
 		Part dfile = request.getPart("dfile");
 		
-		String uploadPath = request.getServletContext().getRealPath("/uploads");
+		String uploadPath = (String)request.getServletContext().getAttribute("uploadPath");
+		String realPath = request.getServletContext().getRealPath(uploadPath);
 		ArticleService service = new ArticleServiceImpl();
 		
 		try {
-			service.modifyArticle(article, uploadPath, ifile, dfile);
+			service.modifyArticle(article, realPath, ifile, dfile);
 			request.setAttribute("article", service.detailArticle(article.getNum()));
 			request.getRequestDispatcher("boarddetail.jsp").forward(request, response);
 		} catch(Exception e) {
