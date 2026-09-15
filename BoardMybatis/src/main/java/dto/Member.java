@@ -15,15 +15,6 @@ public class Member {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Member(String id, String name, String password, String email, String address) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.password = password;
-		this.email = email;
-		this.address = address;
-	}
-
 	public Member(String id, String name, String password, String email, String address, String detailAddress,
 			String postcode, String profile) {
 		super();

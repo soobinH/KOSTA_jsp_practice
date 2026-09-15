@@ -4,8 +4,8 @@
 
 <mapper namespace="mapper.member">
 	<insert id="insertMember" parameterType="member">
-		insert into member(id,name,password,email,address)
-		values(#{id},#{name},#{password},#{email},#{address})
+		insert into member(id,name,password,email,address,detail_address,postcode,profile)
+		values(#{id},#{name},#{password},#{email},#{address},#{detailAddress},#{postcode},#{profile})
 	</insert>
 	
 	<select id="selectMember" resultType="member" parameterType="String">

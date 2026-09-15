@@ -10,5 +10,6 @@ public interface AccountService {
 	Account accountInfo(String id)throws Exception;
 	List<Account> allAccountInfo() throws Exception;
 	Account transfer(String sid, String rid, Integer money) throws Exception;
+	boolean checkAccountId(String id) throws Exception;
 	
 }

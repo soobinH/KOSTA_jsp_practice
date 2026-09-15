@@ -32,4 +32,6 @@ public class MemberDaoImpl implements MemberDao {
 			throw e;
 		}
 	}
+
+	
 }

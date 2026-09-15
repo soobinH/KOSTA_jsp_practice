@@ -8,6 +8,65 @@ pageEncoding="UTF-8"%>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script>
+
+    async function checkDoubleAccId() {
+
+        const accId = document.getElementById('accId');
+
+        if (!accId.value.trim()) {
+            alert("계좌번호를 입력하세요");
+            return;
+        }
+
+        try {
+            const response = await fetch("doubleAccId", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    addId: accId.value
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status:${response.status}`);
+            }
+
+            const result = await response.json();
+
+            console.log(result);
+            
+            if(result.status == 'fail') {
+            	alert("계좌번호 중복체크 시 오류가 발생했습니다.");
+            	return;
+            }
+            
+            if(result.exist){
+            	alert("사용중인 계좌번호입니다.");
+            } else {
+            	alert("사용 가능한 계좌번호입니다.")
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    window.onload = function() {
+
+        const doubleId = document.getElementById("doubldId");
+
+        doubleId.onclick = function(e) {
+
+            e.preventDefault();
+
+            checkDoubleAccId();
+        }
+    }
+
+    </script>
     <style>
         body {
             text-align: center;
@@ -77,7 +136,8 @@ pageEncoding="UTF-8"%>
 	    <div id="form-box">
 	        <div class="row">
 	            <h2>계좌번호</h2>
-	            <input type="text" name="id">
+	            <input type="text" id="accId" name="id">
+	            <div class="input"><button id="doubldId"> 중복</button></div>
 	        </div>
 	        <div class="row">
 	            <h2>이름</h2>

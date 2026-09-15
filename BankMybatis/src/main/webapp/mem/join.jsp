@@ -31,7 +31,39 @@
 		margin : 0 auto;
 	}
 </style>
-
+<script type="text/javascript">
+	window.onload = function() {
+		let doubleId =  document.getElementById("doubldId");
+		doubleId.onclick = function(e) {
+			e.preventDefault();
+			checkDoubleId();
+		}
+		
+		function checkDoubleId() {
+			let id = document.getElementById("id").value;
+			if(!id){
+				alert("아이디를 입력하세요");
+				return;
+			}
+			const param =new URLSearchParams({id:id});
+			
+			fetch("doubleId", {
+				method: "POST",
+				body: param 
+			})
+			.then(response => response.text())
+			.then(data => {
+				console.log(data)
+				if(data == true){
+					alert("사용 중인아이디입니다.")
+				} else {
+					alert("사용 가능한아이디입니다.")
+				}
+			})
+			.catch(error=>console.log(err))
+		}
+	}
+</script>
 
 </head>
 <body>

@@ -24,4 +24,9 @@ public class MemberServiceImpl implements MemberService{
 		member.setPassword("");
 		return member;
 	}
+	
+	public boolean checkDoubleId(String id) throws Exception {
+		Member member = memberDao.selectMember(id);
+		return member!=null;
+	}
 }

@@ -67,5 +67,10 @@ public class AccountServiceImpl implements AccountService {
 		accountDao.updateAccount(send);
 		return send;
 	}
+	@Override
+	public boolean checkAccountId(String id) throws Exception {
+		Account acc = accountDao.selectAccount(id);
+		return acc!=null;
+	}
 
 }
