@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.facility">
+	<insert id="insertFacility" parameterType="facility" useGeneratedKeys="true" keyProperty="num">
+		insert into facility (fac_id,fac_type,fac_type_name,fac_nm,price, available_time, etc)
+			values(#{facId},#{facType},#{facTypeName},#{facNm},#{price},#{availableTime},#{etc})
+	</insert>
+	
+	<select id="selectFacility" parameterType="String" resultType="facility">
+		select * from facility where fac_id=#{facId}
+	</select>
+	
+	<select id="selectFacilityCnt" resultType="Integer" parameterType="Map">
+		select count(*) from facility
+	</select>
+	
+	<update id="updateFacility" parameterType="facility">
+		update facility 
+			set title=#{title}, 
+			content=#{content}
+			<if test="etc != null and etc != ''">
+				, etc=#{etc}
+			</if> 
+		where fac_id=#{facId}
+	</update>
+	
+	<select id="selectFacilityList" parameterType="Integer" resultType="facility">
+		select * from facility order by facId desc limit #{row},10
+	</select>
+	
+	<select id="selectFacilityWithFacType" parameterType="Map" resultType="Map">
+
+	    select a.fac_id, a.fac_type, a.fac_type_name, a.fac_nm,
+	           a.price,
+	           a.etc,
+	     
+	           m.name as writerName
+	    from article a
+	    left join member m on(a.writer=m.id)
+	
+	    <if test="keyword != null and keyword != ''">
+	
+	        <choose>
+	
+	            <when test="type == 'all'">
+	                where a. like concat('%', #{keyword}, '%')
+	                   or a.title like concat('%', #{keyword}, '%')
+	                   or a.content like concat('%', #{keyword}, '%')
+	            </when>
+	
+	            <when test="type == 'title'">
+	                where a.title like concat('%', #{keyword}, '%')
+	            </when>
+	
+	            <when test="type == 'writer'">
+	                where a.writer like concat('%', #{keyword}, '%')
+	            </when>
+	
+	            <when test="type == 'content'">
+	                where a.content like concat('%', #{keyword}, '%')
+	            </when>
+	
+	        </choose>
+
+    </if>
+
+    order by a.num desc
+    limit #{row}, 10
+    </select>
+
+</mapper>
