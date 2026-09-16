@@ -14,4 +14,36 @@ public class HeartDaoImpl implements HeartDao{
 			return sqlSession.selectOne("mapper.heart.selectHeart", param);
 		}
 	}
+
+	@Override
+	public void insertHeart(Map<String, Object> param) throws Exception {
+		SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
+		try {
+			sqlSession.insert("mapper.heart.insertHeart", param);
+			sqlSession.commit();
+			
+		} catch(Exception e) {
+			sqlSession.rollback();
+			throw e;
+		} finally {
+			sqlSession.close();
+		}
+
+		
+	}
+
+	@Override
+	public void deleteHeart(Map<String, Object> param) throws Exception {
+		SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
+		try {
+			sqlSession.delete("mapper.heart.deleteHeart", param);
+			sqlSession.commit();
+		} catch(Exception e) {
+			sqlSession.rollback();
+			throw e;
+		} finally {
+			sqlSession.close();
+		}
+		
+	}
 }

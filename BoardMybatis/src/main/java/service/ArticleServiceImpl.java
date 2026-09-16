@@ -94,4 +94,19 @@ public class ArticleServiceImpl implements ArticleService {
 		param.put("memberId", memberId);
 		return heartDao.selectHeart(param) != null;
 	}
+
+	@Override
+	public Boolean toggleHeart(Integer articleNum, String memberId) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("articleNum",articleNum);
+		param.put("memberId", memberId);
+		
+		if(isHeart(articleNum, memberId)) {
+			heartDao.deleteHeart(param);
+			return false;
+		} else {
+			heartDao.insertHeart(param);
+			return true;
+		}
+	}
 }

@@ -21,4 +21,6 @@ public interface ArticleService {
 	List<Map<String,Object>> articleList(PageInfo pageInfo, String keyword, String type) throws Exception;
 	
 	Boolean isHeart(Integer articleNum, String memberId) throws Exception;
+	
+	Boolean toggleHeart(Integer articleNum, String memberId) throws Exception;
 }

@@ -16,6 +16,28 @@
 	#content { height:200px; }
 </style>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#heart").click(function(){
+		$.ajax({
+			url: "${contextPath}/article/heart",  // 수정 1: 마침표(.)를 쉼표(,)로 변경
+			type: "post",
+			dataType: "text",
+			data: {num: ${article.num}},
+			success: function(result){
+				if(result == "true"){
+					$("#heart").attr('src', '${contextPath}/img/fullH.png');
+				} else {
+					$("#heart").attr('src', '${contextPath}/img/emptyH.png');
+				}
+			}, // 수정 2: 불필요한 } 제거 및 들여쓰기 정리
+			error: function(err){
+				console.log(err);
+			}
+		}); // ajax 끝
+	}); // click 이벤트 끝
+}); // document.ready 끝
+</script>
 </head>
 <body>
 <h2>게시판 글 상세</h2>
@@ -58,7 +80,7 @@
 <br>
 <div id="commandCell">
 <c:if test="${sessionScope.user ne Empty }">
-	<img src="${contextPath }/img/${heart eq true? 'fullH.png':'emptyH.png'}" width="25px"/> &nbsp;&nbsp;
+	<img src="${contextPath }/img/${heart eq true? 'fullH.png':'emptyH.png'}" width="25px" id="heart"/> &nbsp;&nbsp;
 </c:if>
 <c:if test="${sessionScope.user.id eq article.writer }">
 	<a href = "${contextPath }/article/modify?num=${article.num}">수정</a>&nbsp;&nbsp;&nbsp;

@@ -5,4 +5,13 @@
 	<select id="selectHeart" parameterType="Map" resultType="Integer">
 		select num from heart where article_num=#{articleNum} and member_id=#{memberId}
 	</select>
+	
+	<insert id ="insertHeart" parameterType="Map">
+		insert into heart(article_num, member_id) values(#{articleNum}, #{memberId})
+		
+	</insert>
+	
+	<delete id="deleteHeart" parameterType="Map">
+		delete from heart where article_num=#{articleNum} and member_id=#{memberId}
+	</delete>
 </mapper>
